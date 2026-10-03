@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="我的记账">
+<title>我的记账</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:#f5f6f8;
+  color:#222;
+}
+.app{max-width:600px;margin:auto;padding:18px 16px 100px}
+h1{font-size:27px;margin:10px 0 4px}
+.sub{color:#888;font-size:14px;margin-bottom:20px}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 3px 16px rgba(0,0,0,.05)
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px
+}
+
+.num{font-size:21px;font-weight:700;margin-top:6px}
+.label{font-size:13px;color:#888}
+
+.green{color:#16865c}
+.red{color:#d65353}
+.blue{color:#3478f6}
+.orange{color:#d9822b}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:14px;
+  font-size:16px;
+  cursor:pointer
+}
+
+.add{
+  width:100%;
+  background:#3478f6;
+  color:white;
+  font-size:18px;
+  font-weight:600;
+  margin:5px 0 15px
+}
+
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin-bottom:15px
+}
+
+.tabs button{
+  background:white;
+  font-size:13px;
+  padding:11px 4px
+}
+
+.tabs button.active{
+  background:#3478f6;
+  color:white
+}
+
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  margin-top:6px;
+  margin-bottom:13px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:16px;
+  background:white
+}
+
+textarea{resize:none}
+
+.form label{
+  font-size:13px;
+  color:#666
+}
+
+.save{
+  width:100%;
+  background:#222;
+  color:white
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  padding:13px 0
+}
+
+.item:last-child{border-bottom:0}
+.item-title{font-weight:600}
+.item-sub{font-size:12px;color:#999;margin-top:4px}
+.amount{font-weight:700}
+
+.delete{
+  background:#f3f3f3;
+  padding:7px 10px;
+  font-size:12px;
+  margin-left:8px
+}
+
+.hidden{display:none}
+
+.debt-row{
+  border-bottom:1px solid #eee;
+  padding:12px 0
+}
+
+.debt-row:last-child{border:0}
+
+.big{
+  font-size:28px;
+  font-weight:700
+}
+
+.monthSelect{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:14px
+}
+
+.monthSelect select{margin:0}
+
+.notice{
+  font-size:12px;
+  line-height:1.6;
+  color:#888
+}
+
+.category-row{
+  display:flex;
+  justify-content:space-between;
+  padding:9px 0;
+  border-bottom:1px solid #eee
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>我的记账</h1>
+<div class="sub" id="today"></div>
+
+<div class="grid">
+  <div class="card">
+    <div class="label">本月收入</div>
+    <div class="num green" id="monthIncome">¥0.00</div>
+  </div>
+
+  <div class="card">
+    <div class="label">本月支出</div>
+    <div class="num red" id="monthExpense">¥0.00</div>
+  </div>
+
+  <div class="card">
+    <div class="label">本月结余</div>
+    <div class="num blue" id="monthBalance">¥0.00</div>
+  </div>
+
+  <div class="card">
+    <div class="label">待还负债</div>
+    <div class="num orange" id="totalDebt">¥0.00</div>
+  </div>
+</div>
+
+<button class="add" onclick="showAdd()">＋ 记一笔</button>
+
+<div class="tabs">
+<button id="tab-detail" class="active" onclick="showPage('detail')">明细</button>
+<button id="tab-month" onclick="showPage('month')">月度统计</button>
+<button id="tab-year" onclick="showPage('year')">年度统计</button>
+<button id="tab-debt" onclick="showPage('debt')">负债</button>
+</div>
+
+<!-- 记一笔 -->
+
+<div id="addPage" class="card form hidden">
+
+<h3>记一笔</h3>
+
+<label>日期</label>
+<input type="date" id="date">
+
+<label>收支类型</label>
+<select id="type" onchange="updateCategories()">
+<option value="支出">支出</option>
+<option value="收入">收入</option>
+</select>
+
+<label>金额</label>
+<input type="number" id="amount" inputmode="decimal" placeholder="请输入金额">
+
+<label>分类</label>
+<select id="category"></select>
+
+<label>支付/收款账户</label>
+<select id="account">
+<option>微信</option>
+<option>支付宝</option>
+<option>银行卡</option>
+<option>信用卡</option>
+<option>现金</option>
+<option>其他</option>
+</select>
+
+<label>备注</label>
+<textarea id="note" rows="2" placeholder="例如：晚餐、给爸妈生活费"></textarea>
+
+<button class="save" onclick="saveRecord()">保存这笔账</button>
+
+</div>
+
+
+<!-- 明细 -->
+
+<div id="detailPage" class="card">
+<h3>最近账目</h3>
+<div id="recordList"></div>
+</div>
+
+
+<!-- 月度 -->
+
+<div id="monthPage" class="hidden">
+
+<div class="card">
+
+<h3>月度统计</h3>
+
+<div class="monthSelect">
+<select id="monthPicker" onchange="renderMonth()"></select>
+</div>
+
+<div class="label">本月收入</div>
+<div class="big green" id="mIncome">¥0</div>
+
+<br>
+
+<div class="label">本月支出</div>
+<div class="big red" id="mExpense">¥0</div>
+
+<br>
+
+<div class="label">本月结余</div>
+<div class="big blue" id="mBalance">¥0</div>
+
+</div>
+
+<div class="card">
+<h3>钱花到哪里了</h3>
+<div id="categoryStats"></div>
+</div>
+
+</div>
+
+
+<!-- 年度 -->
+
+<div id="yearPage" class="hidden">
+
+<div class="card">
+<h3>年度统计</h3>
+
+<div class="label">全年收入</div>
+<div class="big green" id="yearIncome">¥0</div>
+
+<br>
+
+<div class="label">全年支出</div>
+<div class="big red" id="yearExpense">¥0</div>
+
+<br>
+
+<div class="label">全年结余</div>
+<div class="big blue" id="yearBalance">¥0</div>
+
+</div>
+
+<div class="card">
+<h3>年度分类支出</h3>
+<div id="yearCategory"></div>
+</div>
+
+</div>
+
+
+<!-- 负债 -->
+
+<div id="debtPage" class="hidden">
+
+<div class="card form">
+
+<h3>新增信用卡 / 分期 / 贷款</h3>
+
+<label>名称</label>
+<input id="debtName" placeholder="例如：招商信用卡">
+
+<label>类型</label>
+<select id="debtType">
+<option>信用卡</option>
+<option>信用卡分期</option>
+<option>消费分期</option>
+<option>贷款</option>
+<option>其他</option>
+</select>
+
+<label>剩余欠款</label>
+<input type="number" inputmode="decimal" id="debtAmount">
+
+<label>每月应还</label>
+<input type="number" inputmode="decimal" id="debtMonthly">
+
+<button class="save" onclick="saveDebt()">保存负债</button>
+
+</div>
+
+<div class="card">
+<h3>我的负债</h3>
+<div id="debtList"></div>
+</div>
+
+</div>
+
+
+<div class="card">
+<div class="notice">
+账目数据保存在当前手机浏览器本地。请不要主动清除 Safari 网站数据。
+后续版本可以增加数据备份、Excel 导出和换手机恢复功能。
+</div>
+</div>
+
+</div>
+
+
+<script>
+
+const expenseCategories=[
+"餐饮","服装","出行","汽车","日常生活","住房",
+"孩子开销","父母家庭","人情往来","休闲娱乐",
+"美容护理","医疗健康","学习提升","购物",
+"信用卡还款","信用卡分期","消费分期","贷款还款",
+"其他支出"
+];
+
+const incomeCategories=[
+"工资/个人收入","公司转入","投资理财收入",
+"退款","红包/礼金","其他收入"
+];
+
+let records=JSON.parse(localStorage.getItem("myRecords")||"[]");
+let debts=JSON.parse(localStorage.getItem("myDebts")||"[]");
+
+function money(n){
+ return "¥"+Number(n||0).toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function init(){
+
+ let d=new Date();
+
+ document.getElementById("today").innerText=
+ d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日";
+
+ document.getElementById("date").value=
+ d.toISOString().split("T")[0];
+
+ let picker=document.getElementById("monthPicker");
+
+ for(let i=1;i<=12;i++){
+   let op=document.createElement("option");
+   op.value=i;
+   op.text=i+"月";
+   if(i===d.getMonth()+1) op.selected=true;
+   picker.appendChild(op);
+ }
+
+ updateCategories();
+ renderAll();
+}
+
+function updateCategories(){
+
+ let type=document.getElementById("type").value;
+ let select=document.getElementById("category");
+
+ select.innerHTML="";
+
+ let arr=type==="收入"?incomeCategories:expenseCategories;
+
+ arr.forEach(x=>{
+   let op=document.createElement("option");
+   op.text=x;
+   select.add(op);
+ });
+
+}
+
+function showAdd(){
+ document.getElementById("addPage").classList.toggle("hidden");
+}
+
+function saveRecord(){
+
+ let date=document.getElementById("date").value;
+ let type=document.getElementById("type").value;
+ let amount=parseFloat(document.getElementById("amount").value);
+ let category=document.getElementById("category").value;
+ let account=document.getElementById("account").value;
+ let note=document.getElementById("note").value;
+
+ if(!date || !amount){
+   alert("请填写日期和金额");
+   return;
+ }
+
+ records.push({
+   id:Date.now(),
+   date,
+   type,
+   amount,
+   category,
+   account,
+   note
+ });
+
+ localStorage.setItem("myRecords",JSON.stringify(records));
+
+ document.getElementById("amount").value="";
+ document.getElementById("note").value="";
+ document.getElementById("addPage").classList.add("hidden");
+
+ renderAll();
+
+ alert("记账成功");
+}
+
+function deleteRecord(id){
+
+ if(!confirm("确定删除这笔账吗？")) return;
+
+ records=records.filter(x=>x.id!==id);
+
+ localStorage.setItem("myRecords",JSON.stringify(records));
+
+ renderAll();
+}
+
+function renderHome(){
+
+ let d=new Date();
+ let ym=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+
+ let arr=records.filter(x=>x.date.startsWith(ym));
+
+ let income=arr.filter(x=>x.type==="收入")
+ .reduce((a,b)=>a+b.amount,0);
+
+ let expense=arr.filter(x=>x.type==="支出")
+ .reduce((a,b)=>a+b.amount,0);
+
+ document.getElementById("monthIncome").innerText=money(income);
+ document.getElementById("monthExpense").innerText=money(expense);
+ document.getElementById("monthBalance").innerText=money(income-expense);
+
+ let debt=debts.reduce((a,b)=>a+Number(b.amount),0);
+
+ document.getElementById("totalDebt").innerText=money(debt);
+}
+
+function renderRecords(){
+
+ let box=document.getElementById("recordList");
+
+ box.innerHTML="";
+
+ let arr=[...records].sort((a,b)=>b.date.localeCompare(a.date));
+
+ if(!arr.length){
+   box.innerHTML='<div class="notice">还没有账目，点击上面的“＋记一笔”开始。</div>';
+   return;
+ }
+
+ arr.slice(0,50).forEach(x=>{
+
+   let div=document.createElement("div");
+
+   div.className="item";
+
+   let color=x.type==="收入"?"green":"red";
+   let sign=x.type==="收入"?"+":"-";
+
+   div.innerHTML=`
+   <div>
+     <div class="item-title">${x.category}</div>
+     <div class="item-sub">${x.date} · ${x.account} ${x.note?"· "+x.note:""}</div>
+   </div>
+
+   <div>
+     <span class="amount ${color}">${sign}${money(x.amount)}</span>
+     <button class="delete" onclick="deleteRecord(${x.id})">删除</button>
+   </div>
+   `;
+
+   box.appendChild(div);
+ });
+
+}
+
+function renderMonth(){
+
+ let month=Number(document.getElementById("monthPicker").value);
+
+ let year=new Date().getFullYear();
+
+ let ym=year+"-"+String(month).padStart(2,"0");
+
+ let arr=records.filter(x=>x.date.startsWith(ym));
+
+ let income=arr.filter(x=>x.type==="收入")
+ .reduce((a,b)=>a+b.amount,0);
+
+ let expense=arr.filter(x=>x.type==="支出")
+ .reduce((a,b)=>a+b.amount,0);
+
+ document.getElementById("mIncome").innerText=money(income);
+ document.getElementById("mExpense").innerText=money(expense);
+ document.getElementById("mBalance").innerText=money(income-expense);
+
+ let stats={};
+
+ arr.filter(x=>x.type==="支出").forEach(x=>{
+   stats[x.category]=(stats[x.category]||0)+x.amount;
+ });
+
+ renderStats("categoryStats",stats);
+}
+
+function renderYear(){
+
+ let year=String(new Date().getFullYear());
+
+ let arr=records.filter(x=>x.date.startsWith(year));
+
+ let income=arr.filter(x=>x.type==="收入")
+ .reduce((a,b)=>a+b.amount,0);
+
+ let expense=arr.filter(x=>x.type==="支出")
+ .reduce((a,b)=>a+b.amount,0);
+
+ document.getElementById("yearIncome").innerText=money(income);
+ document.getElementById("yearExpense").innerText=money(expense);
+ document.getElementById("yearBalance").innerText=money(income-expense);
+
+ let stats={};
+
+ arr.filter(x=>x.type==="支出").forEach(x=>{
+   stats[x.category]=(stats[x.category]||0)+x.amount;
+ });
+
+ renderStats("yearCategory",stats);
+}
+
+function renderStats(id,stats){
+
+ let box=document.getElementById(id);
+
+ box.innerHTML="";
+
+ let arr=Object.entries(stats).sort((a,b)=>b[1]-a[1]);
+
+ if(!arr.length){
+   box.innerHTML='<div class="notice">暂无数据</div>';
+   return;
+ }
+
+ arr.forEach(([name,value])=>{
+
+   let row=document.createElement("div");
+
+   row.className="category-row";
+
+   row.innerHTML=`<span>${name}</span><strong>${money(value)}</strong>`;
+
+   box.appendChild(row);
+ });
+
+}
+
+function saveDebt(){
+
+ let name=document.getElementById("debtName").value.trim();
+ let type=document.getElementById("debtType").value;
+ let amount=parseFloat(document.getElementById("debtAmount").value)||0;
+ let monthly=parseFloat(document.getElementById("debtMonthly").value)||0;
+
+ if(!name){
+   alert("请输入负债名称");
+   return;
+ }
+
+ debts.push({
+   id:Date.now(),
+   name,
+   type,
+   amount,
+   monthly
+ });
+
+ localStorage.setItem("myDebts",JSON.stringify(debts));
+
+ document.getElementById("debtName").value="";
+ document.getElementById("debtAmount").value="";
+ document.getElementById("debtMonthly").value="";
+
+ renderAll();
+}
+
+function deleteDebt(id){
+
+ if(!confirm("确定删除这项负债吗？")) return;
+
+ debts=debts.filter(x=>x.id!==id);
+
+ localStorage.setItem("myDebts",JSON.stringify(debts));
+
+ renderAll();
+}
+
+function renderDebts(){
+
+ let box=document.getElementById("debtList");
+
+ box.innerHTML="";
+
+ if(!debts.length){
+   box.innerHTML='<div class="notice">暂无信用卡或分期负债。</div>';
+   return;
+ }
+
+ debts.forEach(x=>{
+
+   let div=document.createElement("div");
+
+   div.className="debt-row";
+
+   div.innerHTML=`
+   <strong>${x.name}</strong>
+   <div class="item-sub">${x.type}</div>
+   <div style="margin-top:7px">
+   剩余：<strong class="orange">${money(x.amount)}</strong>
+   &nbsp;&nbsp; 每月应还：${money(x.monthly)}
+   </div>
+   <button class="delete" onclick="deleteDebt(${x.id})">删除</button>
+   `;
+
+   box.appendChild(div);
+ });
+
+}
+
+function showPage(page){
+
+ ["detail","month","year","debt"].forEach(x=>{
+
+   document.getElementById(x+"Page").classList.add("hidden");
+   document.getElementById("tab-"+x).classList.remove("active");
+
+ });
+
+ document.getElementById(page+"Page").classList.remove("hidden");
+ document.getElementById("tab-"+page).classList.add("active");
+
+ if(page==="month") renderMonth();
+ if(page==="year") renderYear();
+ if(page==="debt") renderDebts();
+}
+
+function renderAll(){
+ renderHome();
+ renderRecords();
+ renderMonth();
+ renderYear();
+ renderDebts();
+}
+
+init();
+
+</script>
+
+</body>
+</html>
