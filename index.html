@@ -20,699 +20,1003 @@ body{
 h1{font-size:27px;margin:10px 0 4px}
 .sub{color:#888;font-size:14px;margin-bottom:20px}
 
-.card{
-  background:white;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
-  box-shadow:0 3px 16px rgba(0,0,0,.05)
-}
-
-.grid{
+.summary{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px
+  gap:10px;
+  margin-bottom:15px;
 }
+.summary-box{
+  background:#fff;
+  border-radius:16px;
+  padding:16px;
+}
+.summary-box small{color:#888}
+.summary-box strong{
+  display:block;
+  margin-top:6px;
+  font-size:21px;
+}
+.income{color:#16835b}
+.expense{color:#d64b4b}
+.balance{color:#222}
+.debt{color:#d67a24}
 
-.num{font-size:21px;font-weight:700;margin-top:6px}
-.label{font-size:13px;color:#888}
-
-.green{color:#16865c}
-.red{color:#d65353}
-.blue{color:#3478f6}
-.orange{color:#d9822b}
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.card-title{
+  font-weight:700;
+  font-size:17px;
+  margin-bottom:12px;
+}
 
 button{
   border:0;
-  border-radius:14px;
-  padding:14px;
-  font-size:16px;
-  cursor:pointer
+  border-radius:12px;
+  padding:12px 14px;
+  font-size:15px;
+  cursor:pointer;
 }
-
-.add{
+.primary{
   width:100%;
-  background:#3478f6;
-  color:white;
-  font-size:18px;
-  font-weight:600;
-  margin:5px 0 15px
+  background:#111;
+  color:#fff;
+  font-weight:700;
+  font-size:17px;
+}
+.secondary{
+  background:#eef0f3;
+  color:#222;
+}
+.danger{
+  background:#fff0f0;
+  color:#c43c3c;
 }
 
 .tabs{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
+  display:flex;
   gap:6px;
-  margin-bottom:15px
+  overflow:auto;
+  margin:15px 0;
+}
+.tab{
+  white-space:nowrap;
+  background:#e9ebef;
+  padding:10px 13px;
+}
+.tab.active{
+  background:#111;
+  color:#fff;
 }
 
-.tabs button{
-  background:white;
+.section{display:none}
+.section.active{display:block}
+
+label{
+  display:block;
   font-size:13px;
-  padding:11px 4px
+  color:#666;
+  margin:12px 0 5px;
 }
-
-.tabs button.active{
-  background:#3478f6;
-  color:white
-}
-
 input,select,textarea{
   width:100%;
-  padding:13px;
-  margin-top:6px;
-  margin-bottom:13px;
+  padding:12px;
   border:1px solid #ddd;
-  border-radius:12px;
+  border-radius:11px;
   font-size:16px;
-  background:white
+  background:#fff;
+}
+textarea{resize:vertical}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-textarea{resize:none}
-
-.form label{
-  font-size:13px;
-  color:#666
+.record{
+  border-bottom:1px solid #eee;
+  padding:12px 0;
 }
-
-.save{
-  width:100%;
-  background:#222;
-  color:white
-}
-
-.item{
+.record:last-child{border-bottom:0}
+.record-top{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid #eee;
-  padding:13px 0
-}
-
-.item:last-child{border-bottom:0}
-.item-title{font-weight:600}
-.item-sub{font-size:12px;color:#999;margin-top:4px}
-.amount{font-weight:700}
-
-.delete{
-  background:#f3f3f3;
-  padding:7px 10px;
-  font-size:12px;
-  margin-left:8px
-}
-
-.hidden{display:none}
-
-.debt-row{
-  border-bottom:1px solid #eee;
-  padding:12px 0
-}
-
-.debt-row:last-child{border:0}
-
-.big{
-  font-size:28px;
-  font-weight:700
-}
-
-.monthSelect{
-  display:flex;
   gap:10px;
-  align-items:center;
-  margin-bottom:14px
+}
+.record-title{font-weight:700}
+.record-meta{
+  color:#888;
+  font-size:13px;
+  margin-top:5px;
+  line-height:1.5;
+}
+.amount-in{color:#16835b;font-weight:700}
+.amount-out{color:#d64b4b;font-weight:700}
+
+.delete-btn{
+  margin-top:8px;
+  padding:6px 10px;
+  font-size:12px;
+  background:#f2f2f2;
 }
 
-.monthSelect select{margin:0}
+.tool-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:9px;
+}
+.tool-grid button{
+  width:100%;
+  text-align:left;
+  padding:14px;
+}
 
 .notice{
-  font-size:12px;
+  font-size:13px;
+  color:#777;
   line-height:1.6;
-  color:#888
+  background:#fafafa;
+  padding:12px;
+  border-radius:10px;
+  margin-top:12px;
 }
 
-.category-row{
+.stat-row{
   display:flex;
   justify-content:space-between;
-  padding:9px 0;
-  border-bottom:1px solid #eee
+  padding:11px 0;
+  border-bottom:1px solid #eee;
+}
+.stat-row:last-child{border-bottom:0}
+
+.empty{
+  text-align:center;
+  color:#aaa;
+  padding:30px 10px;
 }
 
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:20;
+  padding:20px;
+  overflow:auto;
+}
+.modal.show{display:block}
+.modal-box{
+  background:#f5f6f8;
+  max-width:560px;
+  margin:20px auto;
+  border-radius:20px;
+  padding:18px;
+}
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.close{
+  background:#e5e5e5;
+  padding:8px 11px;
+}
+
+.bottom-add{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:22px;
+  width:calc(100% - 32px);
+  max-width:568px;
+  z-index:10;
+}
+
+.file-input{display:none}
+
+@media(max-width:380px){
+  .summary{grid-template-columns:1fr 1fr}
+  .summary-box{padding:13px}
+  .summary-box strong{font-size:18px}
+}
 </style>
 </head>
 
 <body>
 
 <div class="app">
+  <h1>我的记账</h1>
+  <div class="sub" id="monthTitle"></div>
 
-<h1>我的记账</h1>
-<div class="sub" id="today"></div>
+  <div class="summary">
+    <div class="summary-box">
+      <small>本月收入</small>
+      <strong class="income" id="monthIncome">¥0.00</strong>
+    </div>
 
-<div class="grid">
-  <div class="card">
-    <div class="label">本月收入</div>
-    <div class="num green" id="monthIncome">¥0.00</div>
+    <div class="summary-box">
+      <small>本月支出</small>
+      <strong class="expense" id="monthExpense">¥0.00</strong>
+    </div>
+
+    <div class="summary-box">
+      <small>本月结余</small>
+      <strong class="balance" id="monthBalance">¥0.00</strong>
+    </div>
+
+    <div class="summary-box">
+      <small>待还负债</small>
+      <strong class="debt" id="totalDebt">¥0.00</strong>
+    </div>
   </div>
 
-  <div class="card">
-    <div class="label">本月支出</div>
-    <div class="num red" id="monthExpense">¥0.00</div>
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('records',this)">明细</button>
+    <button class="tab" onclick="showSection('month',this)">月度统计</button>
+    <button class="tab" onclick="showSection('year',this)">年度统计</button>
+    <button class="tab" onclick="showSection('debts',this)">负债</button>
+    <button class="tab" onclick="showSection('tools',this)">数据管理</button>
   </div>
 
-  <div class="card">
-    <div class="label">本月结余</div>
-    <div class="num blue" id="monthBalance">¥0.00</div>
+  <div id="records" class="section active">
+    <div class="card">
+      <div class="card-title">最近账目</div>
+      <div id="recordList"></div>
+    </div>
   </div>
 
-  <div class="card">
-    <div class="label">待还负债</div>
-    <div class="num orange" id="totalDebt">¥0.00</div>
+  <div id="month" class="section">
+    <div class="card">
+      <div class="card-title">本月统计</div>
+      <div id="monthStats"></div>
+    </div>
+  </div>
+
+  <div id="year" class="section">
+    <div class="card">
+      <div class="card-title">本年度统计</div>
+      <div id="yearStats"></div>
+    </div>
+  </div>
+
+  <div id="debts" class="section">
+    <div class="card">
+      <div class="card-title">我的负债</div>
+      <div id="debtList"></div>
+      <button class="primary" onclick="openDebtModal()">＋ 添加负债</button>
+    </div>
+  </div>
+
+  <div id="tools" class="section">
+    <div class="card">
+      <div class="card-title">数据管理</div>
+
+      <div class="tool-grid">
+        <button class="secondary" onclick="backupData()">
+          备份全部数据
+        </button>
+
+        <button class="secondary" onclick="document.getElementById('restoreFile').click()">
+          恢复备份数据
+        </button>
+
+        <button class="secondary" onclick="exportCSV()">
+          导出账单（Excel可打开）
+        </button>
+      </div>
+
+      <input
+        type="file"
+        id="restoreFile"
+        class="file-input"
+        accept=".json,application/json"
+        onchange="restoreData(event)"
+      >
+
+      <div class="notice">
+        建议每月备份一次。备份文件包含您的账目和负债数据，请妥善保存。
+        恢复备份会覆盖当前设备中的账目数据。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<button class="primary bottom-add" onclick="openRecordModal()">＋ 记一笔</button>
+
+
+<div class="modal" id="recordModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>记一笔</h2>
+      <button class="close" onclick="closeRecordModal()">关闭</button>
+    </div>
+
+    <label>日期</label>
+    <input type="date" id="recordDate">
+
+    <label>收支类型</label>
+    <select id="recordType" onchange="updateCategories()">
+      <option value="支出">支出</option>
+      <option value="收入">收入</option>
+    </select>
+
+    <label>金额</label>
+    <input type="number" id="recordAmount" inputmode="decimal" placeholder="请输入金额">
+
+    <label>分类</label>
+    <select id="recordCategory"></select>
+
+    <label>支付 / 收款账户</label>
+    <select id="recordAccount">
+      <option>微信</option>
+      <option>支付宝</option>
+      <option>银行卡</option>
+      <option>信用卡</option>
+      <option>现金</option>
+      <option>其他</option>
+    </select>
+
+    <label>备注</label>
+    <textarea id="recordNote" rows="3" placeholder="例如：午餐、孩子学费、信用卡分期等"></textarea>
+
+    <br><br>
+    <button class="primary" onclick="saveRecord()">保存这笔账</button>
+
   </div>
 </div>
 
-<button class="add" onclick="showAdd()">＋ 记一笔</button>
 
-<div class="tabs">
-<button id="tab-detail" class="active" onclick="showPage('detail')">明细</button>
-<button id="tab-month" onclick="showPage('month')">月度统计</button>
-<button id="tab-year" onclick="showPage('year')">年度统计</button>
-<button id="tab-debt" onclick="showPage('debt')">负债</button>
-</div>
+<div class="modal" id="debtModal">
+  <div class="modal-box">
 
-<!-- 记一笔 -->
+    <div class="modal-head">
+      <h2>添加负债</h2>
+      <button class="close" onclick="closeDebtModal()">关闭</button>
+    </div>
 
-<div id="addPage" class="card form hidden">
+    <label>负债名称</label>
+    <input id="debtName" placeholder="例如：招商银行信用卡">
 
-<h3>记一笔</h3>
+    <label>类型</label>
+    <select id="debtType">
+      <option>信用卡</option>
+      <option>信用卡分期</option>
+      <option>消费分期</option>
+      <option>贷款</option>
+      <option>其他</option>
+    </select>
 
-<label>日期</label>
-<input type="date" id="date">
+    <label>剩余欠款</label>
+    <input type="number" id="debtRemaining" inputmode="decimal" placeholder="请输入剩余欠款">
 
-<label>收支类型</label>
-<select id="type" onchange="updateCategories()">
-<option value="支出">支出</option>
-<option value="收入">收入</option>
-</select>
+    <label>每月应还</label>
+    <input type="number" id="debtMonthly" inputmode="decimal" placeholder="请输入每月应还">
 
-<label>金额</label>
-<input type="number" id="amount" inputmode="decimal" placeholder="请输入金额">
+    <br><br>
+    <button class="primary" onclick="saveDebt()">保存负债</button>
 
-<label>分类</label>
-<select id="category"></select>
-
-<label>支付/收款账户</label>
-<select id="account">
-<option>微信</option>
-<option>支付宝</option>
-<option>银行卡</option>
-<option>信用卡</option>
-<option>现金</option>
-<option>其他</option>
-</select>
-
-<label>备注</label>
-<textarea id="note" rows="2" placeholder="例如：晚餐、给爸妈生活费"></textarea>
-
-<button class="save" onclick="saveRecord()">保存这笔账</button>
-
-</div>
-
-
-<!-- 明细 -->
-
-<div id="detailPage" class="card">
-<h3>最近账目</h3>
-<div id="recordList"></div>
-</div>
-
-
-<!-- 月度 -->
-
-<div id="monthPage" class="hidden">
-
-<div class="card">
-
-<h3>月度统计</h3>
-
-<div class="monthSelect">
-<select id="monthPicker" onchange="renderMonth()"></select>
-</div>
-
-<div class="label">本月收入</div>
-<div class="big green" id="mIncome">¥0</div>
-
-<br>
-
-<div class="label">本月支出</div>
-<div class="big red" id="mExpense">¥0</div>
-
-<br>
-
-<div class="label">本月结余</div>
-<div class="big blue" id="mBalance">¥0</div>
-
-</div>
-
-<div class="card">
-<h3>钱花到哪里了</h3>
-<div id="categoryStats"></div>
-</div>
-
-</div>
-
-
-<!-- 年度 -->
-
-<div id="yearPage" class="hidden">
-
-<div class="card">
-<h3>年度统计</h3>
-
-<div class="label">全年收入</div>
-<div class="big green" id="yearIncome">¥0</div>
-
-<br>
-
-<div class="label">全年支出</div>
-<div class="big red" id="yearExpense">¥0</div>
-
-<br>
-
-<div class="label">全年结余</div>
-<div class="big blue" id="yearBalance">¥0</div>
-
-</div>
-
-<div class="card">
-<h3>年度分类支出</h3>
-<div id="yearCategory"></div>
-</div>
-
-</div>
-
-
-<!-- 负债 -->
-
-<div id="debtPage" class="hidden">
-
-<div class="card form">
-
-<h3>新增信用卡 / 分期 / 贷款</h3>
-
-<label>名称</label>
-<input id="debtName" placeholder="例如：招商信用卡">
-
-<label>类型</label>
-<select id="debtType">
-<option>信用卡</option>
-<option>信用卡分期</option>
-<option>消费分期</option>
-<option>贷款</option>
-<option>其他</option>
-</select>
-
-<label>剩余欠款</label>
-<input type="number" inputmode="decimal" id="debtAmount">
-
-<label>每月应还</label>
-<input type="number" inputmode="decimal" id="debtMonthly">
-
-<button class="save" onclick="saveDebt()">保存负债</button>
-
-</div>
-
-<div class="card">
-<h3>我的负债</h3>
-<div id="debtList"></div>
-</div>
-
-</div>
-
-
-<div class="card">
-<div class="notice">
-账目数据保存在当前手机浏览器本地。请不要主动清除 Safari 网站数据。
-后续版本可以增加数据备份、Excel 导出和换手机恢复功能。
-</div>
-</div>
-
+  </div>
 </div>
 
 
 <script>
 
 const expenseCategories=[
-"餐饮","服装","出行","汽车","日常生活","住房",
-"孩子开销","父母家庭","人情往来","休闲娱乐",
-"美容护理","医疗健康","学习提升","购物",
-"信用卡还款","信用卡分期","消费分期","贷款还款",
-"其他支出"
+  "餐饮",
+  "服装",
+  "出行",
+  "汽车",
+  "日常生活",
+  "住房",
+  "孩子开销",
+  "父母家庭",
+  "人情往来",
+  "休闲娱乐",
+  "美容护理",
+  "医疗健康",
+  "学习提升",
+  "购物",
+  "信用卡还款",
+  "信用卡分期",
+  "消费分期",
+  "贷款还款",
+  "其他支出"
 ];
 
 const incomeCategories=[
-"工资/个人收入","公司转入","投资理财收入",
-"退款","红包/礼金","其他收入"
+  "工资/个人收入",
+  "公司转入",
+  "投资理财收入",
+  "退款",
+  "红包/礼金",
+  "其他收入"
 ];
 
 let records=JSON.parse(localStorage.getItem("myRecords")||"[]");
 let debts=JSON.parse(localStorage.getItem("myDebts")||"[]");
 
+
+function localDateString(date=new Date()){
+  const y=date.getFullYear();
+  const m=String(date.getMonth()+1).padStart(2,"0");
+  const d=String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
+
+
 function money(n){
- return "¥"+Number(n||0).toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  return "¥"+Number(n||0).toLocaleString("zh-CN",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
 }
 
-function init(){
 
- let d=new Date();
-
- document.getElementById("today").innerText=
- d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日";
-
- document.getElementById("date").value=
- d.toISOString().split("T")[0];
-
- let picker=document.getElementById("monthPicker");
-
- for(let i=1;i<=12;i++){
-   let op=document.createElement("option");
-   op.value=i;
-   op.text=i+"月";
-   if(i===d.getMonth()+1) op.selected=true;
-   picker.appendChild(op);
- }
-
- updateCategories();
- renderAll();
+function saveLocal(){
+  localStorage.setItem("myRecords",JSON.stringify(records));
+  localStorage.setItem("myDebts",JSON.stringify(debts));
 }
+
+
+function showSection(id,btn){
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+
+  document.getElementById(id).classList.add("active");
+  btn.classList.add("active");
+
+  renderAll();
+}
+
 
 function updateCategories(){
 
- let type=document.getElementById("type").value;
- let select=document.getElementById("category");
+  const type=document.getElementById("recordType").value;
+  const select=document.getElementById("recordCategory");
 
- select.innerHTML="";
+  select.innerHTML="";
 
- let arr=type==="收入"?incomeCategories:expenseCategories;
+  const categories=type==="收入" ? incomeCategories : expenseCategories;
 
- arr.forEach(x=>{
-   let op=document.createElement("option");
-   op.text=x;
-   select.add(op);
- });
-
+  categories.forEach(c=>{
+    const option=document.createElement("option");
+    option.value=c;
+    option.textContent=c;
+    select.appendChild(option);
+  });
 }
 
-function showAdd(){
- document.getElementById("addPage").classList.toggle("hidden");
+
+function openRecordModal(){
+
+  document.getElementById("recordDate").value=localDateString();
+  document.getElementById("recordType").value="支出";
+  document.getElementById("recordAmount").value="";
+  document.getElementById("recordNote").value="";
+
+  updateCategories();
+
+  document.getElementById("recordModal").classList.add("show");
 }
+
+
+function closeRecordModal(){
+  document.getElementById("recordModal").classList.remove("show");
+}
+
 
 function saveRecord(){
 
- let date=document.getElementById("date").value;
- let type=document.getElementById("type").value;
- let amount=parseFloat(document.getElementById("amount").value);
- let category=document.getElementById("category").value;
- let account=document.getElementById("account").value;
- let note=document.getElementById("note").value;
+  const date=document.getElementById("recordDate").value;
+  const type=document.getElementById("recordType").value;
+  const amount=parseFloat(document.getElementById("recordAmount").value);
+  const category=document.getElementById("recordCategory").value;
+  const account=document.getElementById("recordAccount").value;
+  const note=document.getElementById("recordNote").value.trim();
 
- if(!date || !amount){
-   alert("请填写日期和金额");
-   return;
- }
+  if(!date){
+    alert("请选择日期");
+    return;
+  }
 
- records.push({
-   id:Date.now(),
-   date,
-   type,
-   amount,
-   category,
-   account,
-   note
- });
+  if(!amount || amount<=0){
+    alert("请输入正确金额");
+    return;
+  }
 
- localStorage.setItem("myRecords",JSON.stringify(records));
+  records.push({
+    id:Date.now(),
+    date,
+    type,
+    amount,
+    category,
+    account,
+    note
+  });
 
- document.getElementById("amount").value="";
- document.getElementById("note").value="";
- document.getElementById("addPage").classList.add("hidden");
-
- renderAll();
-
- alert("记账成功");
+  saveLocal();
+  closeRecordModal();
+  renderAll();
 }
+
 
 function deleteRecord(id){
 
- if(!confirm("确定删除这笔账吗？")) return;
+  if(!confirm("确定删除这笔账吗？")) return;
 
- records=records.filter(x=>x.id!==id);
+  records=records.filter(r=>r.id!==id);
 
- localStorage.setItem("myRecords",JSON.stringify(records));
-
- renderAll();
+  saveLocal();
+  renderAll();
 }
 
-function renderHome(){
 
- let d=new Date();
- let ym=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+function openDebtModal(){
 
- let arr=records.filter(x=>x.date.startsWith(ym));
+  document.getElementById("debtName").value="";
+  document.getElementById("debtRemaining").value="";
+  document.getElementById("debtMonthly").value="";
 
- let income=arr.filter(x=>x.type==="收入")
- .reduce((a,b)=>a+b.amount,0);
-
- let expense=arr.filter(x=>x.type==="支出")
- .reduce((a,b)=>a+b.amount,0);
-
- document.getElementById("monthIncome").innerText=money(income);
- document.getElementById("monthExpense").innerText=money(expense);
- document.getElementById("monthBalance").innerText=money(income-expense);
-
- let debt=debts.reduce((a,b)=>a+Number(b.amount),0);
-
- document.getElementById("totalDebt").innerText=money(debt);
+  document.getElementById("debtModal").classList.add("show");
 }
 
-function renderRecords(){
 
- let box=document.getElementById("recordList");
-
- box.innerHTML="";
-
- let arr=[...records].sort((a,b)=>b.date.localeCompare(a.date));
-
- if(!arr.length){
-   box.innerHTML='<div class="notice">还没有账目，点击上面的“＋记一笔”开始。</div>';
-   return;
- }
-
- arr.slice(0,50).forEach(x=>{
-
-   let div=document.createElement("div");
-
-   div.className="item";
-
-   let color=x.type==="收入"?"green":"red";
-   let sign=x.type==="收入"?"+":"-";
-
-   div.innerHTML=`
-   <div>
-     <div class="item-title">${x.category}</div>
-     <div class="item-sub">${x.date} · ${x.account} ${x.note?"· "+x.note:""}</div>
-   </div>
-
-   <div>
-     <span class="amount ${color}">${sign}${money(x.amount)}</span>
-     <button class="delete" onclick="deleteRecord(${x.id})">删除</button>
-   </div>
-   `;
-
-   box.appendChild(div);
- });
-
+function closeDebtModal(){
+  document.getElementById("debtModal").classList.remove("show");
 }
 
-function renderMonth(){
-
- let month=Number(document.getElementById("monthPicker").value);
-
- let year=new Date().getFullYear();
-
- let ym=year+"-"+String(month).padStart(2,"0");
-
- let arr=records.filter(x=>x.date.startsWith(ym));
-
- let income=arr.filter(x=>x.type==="收入")
- .reduce((a,b)=>a+b.amount,0);
-
- let expense=arr.filter(x=>x.type==="支出")
- .reduce((a,b)=>a+b.amount,0);
-
- document.getElementById("mIncome").innerText=money(income);
- document.getElementById("mExpense").innerText=money(expense);
- document.getElementById("mBalance").innerText=money(income-expense);
-
- let stats={};
-
- arr.filter(x=>x.type==="支出").forEach(x=>{
-   stats[x.category]=(stats[x.category]||0)+x.amount;
- });
-
- renderStats("categoryStats",stats);
-}
-
-function renderYear(){
-
- let year=String(new Date().getFullYear());
-
- let arr=records.filter(x=>x.date.startsWith(year));
-
- let income=arr.filter(x=>x.type==="收入")
- .reduce((a,b)=>a+b.amount,0);
-
- let expense=arr.filter(x=>x.type==="支出")
- .reduce((a,b)=>a+b.amount,0);
-
- document.getElementById("yearIncome").innerText=money(income);
- document.getElementById("yearExpense").innerText=money(expense);
- document.getElementById("yearBalance").innerText=money(income-expense);
-
- let stats={};
-
- arr.filter(x=>x.type==="支出").forEach(x=>{
-   stats[x.category]=(stats[x.category]||0)+x.amount;
- });
-
- renderStats("yearCategory",stats);
-}
-
-function renderStats(id,stats){
-
- let box=document.getElementById(id);
-
- box.innerHTML="";
-
- let arr=Object.entries(stats).sort((a,b)=>b[1]-a[1]);
-
- if(!arr.length){
-   box.innerHTML='<div class="notice">暂无数据</div>';
-   return;
- }
-
- arr.forEach(([name,value])=>{
-
-   let row=document.createElement("div");
-
-   row.className="category-row";
-
-   row.innerHTML=`<span>${name}</span><strong>${money(value)}</strong>`;
-
-   box.appendChild(row);
- });
-
-}
 
 function saveDebt(){
 
- let name=document.getElementById("debtName").value.trim();
- let type=document.getElementById("debtType").value;
- let amount=parseFloat(document.getElementById("debtAmount").value)||0;
- let monthly=parseFloat(document.getElementById("debtMonthly").value)||0;
+  const name=document.getElementById("debtName").value.trim();
+  const type=document.getElementById("debtType").value;
+  const remaining=parseFloat(document.getElementById("debtRemaining").value);
+  const monthly=parseFloat(document.getElementById("debtMonthly").value)||0;
 
- if(!name){
-   alert("请输入负债名称");
-   return;
- }
+  if(!name){
+    alert("请输入负债名称");
+    return;
+  }
 
- debts.push({
-   id:Date.now(),
-   name,
-   type,
-   amount,
-   monthly
- });
+  if(isNaN(remaining) || remaining<0){
+    alert("请输入正确的剩余欠款");
+    return;
+  }
 
- localStorage.setItem("myDebts",JSON.stringify(debts));
+  debts.push({
+    id:Date.now(),
+    name,
+    type,
+    remaining,
+    monthly
+  });
 
- document.getElementById("debtName").value="";
- document.getElementById("debtAmount").value="";
- document.getElementById("debtMonthly").value="";
-
- renderAll();
+  saveLocal();
+  closeDebtModal();
+  renderAll();
 }
+
 
 function deleteDebt(id){
 
- if(!confirm("确定删除这项负债吗？")) return;
+  if(!confirm("确定删除这项负债吗？")) return;
 
- debts=debts.filter(x=>x.id!==id);
+  debts=debts.filter(d=>d.id!==id);
 
- localStorage.setItem("myDebts",JSON.stringify(debts));
-
- renderAll();
+  saveLocal();
+  renderAll();
 }
+
+
+function renderSummary(){
+
+  const now=new Date();
+  const year=now.getFullYear();
+  const month=now.getMonth()+1;
+
+  document.getElementById("monthTitle").textContent=
+    `${year}年${month}月 · 个人收支`;
+
+  let income=0;
+  let expense=0;
+
+  records.forEach(r=>{
+
+    const parts=r.date.split("-");
+
+    if(
+      Number(parts[0])===year &&
+      Number(parts[1])===month
+    ){
+      if(r.type==="收入") income+=Number(r.amount);
+      else expense+=Number(r.amount);
+    }
+  });
+
+  const debtTotal=debts.reduce(
+    (sum,d)=>sum+Number(d.remaining||0),
+    0
+  );
+
+  document.getElementById("monthIncome").textContent=money(income);
+  document.getElementById("monthExpense").textContent=money(expense);
+  document.getElementById("monthBalance").textContent=money(income-expense);
+  document.getElementById("totalDebt").textContent=money(debtTotal);
+}
+
+
+function renderRecords(){
+
+  const box=document.getElementById("recordList");
+
+  if(!records.length){
+    box.innerHTML='<div class="empty">还没有账目，点击下方“＋记一笔”开始。</div>';
+    return;
+  }
+
+  const list=[...records].sort((a,b)=>{
+    if(a.date===b.date) return b.id-a.id;
+    return b.date.localeCompare(a.date);
+  });
+
+  box.innerHTML=list.map(r=>`
+
+    <div class="record">
+
+      <div class="record-top">
+
+        <div class="record-title">
+          ${escapeHtml(r.category)}
+        </div>
+
+        <div class="${r.type==="收入"?"amount-in":"amount-out"}">
+          ${r.type==="收入"?"+":"-"}${money(r.amount)}
+        </div>
+
+      </div>
+
+      <div class="record-meta">
+        ${escapeHtml(r.date)} ·
+        ${escapeHtml(r.account||"")} ·
+        ${escapeHtml(r.type)}
+        ${r.note ? "<br>"+escapeHtml(r.note) : ""}
+      </div>
+
+      <button class="delete-btn" onclick="deleteRecord(${r.id})">
+        删除
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+
+function renderMonthStats(){
+
+  const now=new Date();
+  const year=now.getFullYear();
+  const month=now.getMonth()+1;
+
+  const monthRecords=records.filter(r=>{
+
+    const p=r.date.split("-");
+
+    return Number(p[0])===year &&
+           Number(p[1])===month;
+  });
+
+  const categoryTotals={};
+
+  monthRecords
+    .filter(r=>r.type==="支出")
+    .forEach(r=>{
+      categoryTotals[r.category]=(categoryTotals[r.category]||0)+Number(r.amount);
+    });
+
+  const income=monthRecords
+    .filter(r=>r.type==="收入")
+    .reduce((s,r)=>s+Number(r.amount),0);
+
+  const expense=monthRecords
+    .filter(r=>r.type==="支出")
+    .reduce((s,r)=>s+Number(r.amount),0);
+
+  let html=`
+    <div class="stat-row"><span>本月收入</span><strong>${money(income)}</strong></div>
+    <div class="stat-row"><span>本月支出</span><strong>${money(expense)}</strong></div>
+    <div class="stat-row"><span>本月结余</span><strong>${money(income-expense)}</strong></div>
+  `;
+
+  const cats=Object.entries(categoryTotals)
+    .sort((a,b)=>b[1]-a[1]);
+
+  if(cats.length){
+    html+=`<div style="margin-top:18px;font-weight:700">支出分类</div>`;
+
+    cats.forEach(([name,value])=>{
+      html+=`
+        <div class="stat-row">
+          <span>${escapeHtml(name)}</span>
+          <span>${money(value)}</span>
+        </div>
+      `;
+    });
+  }
+
+  document.getElementById("monthStats").innerHTML=html;
+}
+
+
+function renderYearStats(){
+
+  const year=new Date().getFullYear();
+
+  const yearRecords=records.filter(r=>
+    Number(r.date.split("-")[0])===year
+  );
+
+  const income=yearRecords
+    .filter(r=>r.type==="收入")
+    .reduce((s,r)=>s+Number(r.amount),0);
+
+  const expense=yearRecords
+    .filter(r=>r.type==="支出")
+    .reduce((s,r)=>s+Number(r.amount),0);
+
+  let html=`
+    <div class="stat-row"><span>${year}年总收入</span><strong>${money(income)}</strong></div>
+    <div class="stat-row"><span>${year}年总支出</span><strong>${money(expense)}</strong></div>
+    <div class="stat-row"><span>${year}年总结余</span><strong>${money(income-expense)}</strong></div>
+  `;
+
+  for(let m=1;m<=12;m++){
+
+    const monthly=yearRecords.filter(
+      r=>Number(r.date.split("-")[1])===m
+    );
+
+    const mi=monthly
+      .filter(r=>r.type==="收入")
+      .reduce((s,r)=>s+Number(r.amount),0);
+
+    const me=monthly
+      .filter(r=>r.type==="支出")
+      .reduce((s,r)=>s+Number(r.amount),0);
+
+    html+=`
+      <div class="stat-row">
+        <span>${m}月结余</span>
+        <span>${money(mi-me)}</span>
+      </div>
+    `;
+  }
+
+  document.getElementById("yearStats").innerHTML=html;
+}
+
 
 function renderDebts(){
 
- let box=document.getElementById("debtList");
+  const box=document.getElementById("debtList");
 
- box.innerHTML="";
+  if(!debts.length){
+    box.innerHTML='<div class="empty">暂时没有负债记录。</div>';
+    return;
+  }
 
- if(!debts.length){
-   box.innerHTML='<div class="notice">暂无信用卡或分期负债。</div>';
-   return;
- }
+  box.innerHTML=debts.map(d=>`
 
- debts.forEach(x=>{
+    <div class="record">
 
-   let div=document.createElement("div");
+      <div class="record-top">
 
-   div.className="debt-row";
+        <div class="record-title">
+          ${escapeHtml(d.name)}
+        </div>
 
-   div.innerHTML=`
-   <strong>${x.name}</strong>
-   <div class="item-sub">${x.type}</div>
-   <div style="margin-top:7px">
-   剩余：<strong class="orange">${money(x.amount)}</strong>
-   &nbsp;&nbsp; 每月应还：${money(x.monthly)}
-   </div>
-   <button class="delete" onclick="deleteDebt(${x.id})">删除</button>
-   `;
+        <div class="debt">
+          ${money(d.remaining)}
+        </div>
 
-   box.appendChild(div);
- });
+      </div>
 
+      <div class="record-meta">
+        ${escapeHtml(d.type)}
+        · 每月应还 ${money(d.monthly)}
+      </div>
+
+      <button class="delete-btn" onclick="deleteDebt(${d.id})">
+        删除
+      </button>
+
+    </div>
+
+  `).join("");
 }
 
-function showPage(page){
 
- ["detail","month","year","debt"].forEach(x=>{
+/* ===== 数据备份 ===== */
 
-   document.getElementById(x+"Page").classList.add("hidden");
-   document.getElementById("tab-"+x).classList.remove("active");
+function backupData(){
 
- });
+  const backup={
+    app:"我的记账",
+    version:2,
+    backupTime:new Date().toISOString(),
+    records,
+    debts
+  };
 
- document.getElementById(page+"Page").classList.remove("hidden");
- document.getElementById("tab-"+page).classList.add("active");
+  const blob=new Blob(
+    [JSON.stringify(backup,null,2)],
+    {type:"application/json"}
+  );
 
- if(page==="month") renderMonth();
- if(page==="year") renderYear();
- if(page==="debt") renderDebts();
+  downloadBlob(
+    blob,
+    `我的记账备份_${localDateString()}.json`
+  );
 }
+
+
+/* ===== 恢复数据 ===== */
+
+function restoreData(event){
+
+  const file=event.target.files[0];
+
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+
+    try{
+
+      const data=JSON.parse(e.target.result);
+
+      if(
+        !data ||
+        !Array.isArray(data.records) ||
+        !Array.isArray(data.debts)
+      ){
+        throw new Error("格式错误");
+      }
+
+      if(!confirm(
+        "恢复备份会覆盖当前手机里的账目和负债数据，确定继续吗？"
+      )){
+        event.target.value="";
+        return;
+      }
+
+      records=data.records;
+      debts=data.debts;
+
+      saveLocal();
+      renderAll();
+
+      alert("数据恢复成功");
+
+    }catch(err){
+
+      alert("这个文件不是有效的“我的记账”备份文件。");
+
+    }
+
+    event.target.value="";
+  };
+
+  reader.readAsText(file);
+}
+
+
+/* ===== 导出CSV ===== */
+
+function exportCSV(){
+
+  if(!records.length){
+    alert("目前还没有账目可以导出。");
+    return;
+  }
+
+  const rows=[
+    ["日期","收支类型","分类","金额","支付/收款账户","备注"]
+  ];
+
+  [...records]
+    .sort((a,b)=>a.date.localeCompare(b.date))
+    .forEach(r=>{
+
+      rows.push([
+        r.date,
+        r.type,
+        r.category,
+        Number(r.amount).toFixed(2),
+        r.account||"",
+        r.note||""
+      ]);
+
+    });
+
+  const csv=rows
+    .map(row=>
+      row.map(csvCell).join(",")
+    )
+    .join("\r\n");
+
+  const blob=new Blob(
+    ["\uFEFF"+csv],
+    {type:"text/csv;charset=utf-8;"}
+  );
+
+  downloadBlob(
+    blob,
+    `我的记账账单_${localDateString()}.csv`
+  );
+}
+
+
+function csvCell(value){
+
+  const text=String(value??"").replace(/"/g,'""');
+
+  return `"${text}"`;
+}
+
+
+function downloadBlob(blob,filename){
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download=filename;
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(()=>{
+    URL.revokeObjectURL(url);
+  },1000);
+}
+
+
+function escapeHtml(value){
+
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
 
 function renderAll(){
- renderHome();
- renderRecords();
- renderMonth();
- renderYear();
- renderDebts();
+  renderSummary();
+  renderRecords();
+  renderMonthStats();
+  renderYearStats();
+  renderDebts();
 }
 
-init();
+
+updateCategories();
+renderAll();
 
 </script>
 
 </body>
 </html>
-
